@@ -15,20 +15,20 @@
   <script>
     async function initPlayer() {
       const video = document.getElementById('video');
-      const player = new shaka.Player();
+      const player = new shaka.Player(video);
 
-      // Listen for errors
+      // Listen for Shaka errors
       player.addEventListener('error', e => console.error('Shaka Error:', e.detail));
 
       // ZTE DASH manifest URL
       const manifestUrl = 'http://143.44.136.110:6910/001/2/ch00000090990000001305/manifest.mpd?virtualDomain=001.live_hls.zte.com&IASHttpSessionId=OTT2909020250816165854007211';
 
-      // Encode the URL and use your Vercel proxy
+      // Encode URL for your proxy
       const proxiedUrl = '/api/proxy?url=' + encodeURIComponent(manifestUrl);
 
       try {
         await player.load(proxiedUrl);
-        console.log('Video loaded!');
+        console.log('Video loaded successfully!');
       } catch (err) {
         console.error('Error loading video:', err);
       }

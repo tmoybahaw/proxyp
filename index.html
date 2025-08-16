@@ -20,9 +20,6 @@
       // Listen for errors
       player.addEventListener('error', e => console.error('Shaka Error:', e.detail));
 
-      // Configure Shaka for proxy if needed
-      shaka.net.HttpFetchPlugin.register();
-
       // ZTE DASH manifest URL
       const manifestUrl = 'http://143.44.136.110:6910/001/2/ch00000090990000001305/manifest.mpd?virtualDomain=001.live_hls.zte.com&IASHttpSessionId=OTT2909020250816165854007211';
 

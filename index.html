@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hosted DASH Stream</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.9.0/shaka-player.compiled.js"></script>
+  <style>
+    body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    video { width: 80%; max-width: 1280px; height: auto; }
+  </style>
+</head>
+<body>
+  <video id="video" controls autoplay></video>
+
+  <script>
+    async function init() {
+      const video = document.getElementById('video');
+      const player = new shaka.Player(video);
+
+      player.addEventListener('error', (event) => {
+        console.error('Shaka Player Error:', event.detail);
+      });
+
+      // Your Vercel proxy URL
+      const mpdUrl = '/api/proxy?url=' + encodeURIComponent(
+        'http://143.44.136.110:6910/001/2/ch00000090990000001305/manifest.mpd?virtualDomain=001.live_hls.zte.com&IASHttpSessionId=OTT2909020250816165854007211'
+      );
+
+      try {
+        await player.load(mpdUrl);
+        console.log('Video loaded!');
+      } catch (err) {
+        console.error('Error loading video:', err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
